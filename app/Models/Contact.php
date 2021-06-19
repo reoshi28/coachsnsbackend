@@ -11,6 +11,12 @@ class Contact extends Model
 
     public static $rules = array(
         'name' => 'required | max:20',
+        'email' => 'required | email',
+        'password' => 'required | min:6'
     );
+    public function shares()
+    {
+        return $this->hasMany('App\Models\Share');
+    }
     use HasFactory;
 }

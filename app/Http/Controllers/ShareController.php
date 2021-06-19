@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
 use Illuminate\Http\Request;
+use App\Models\Share;
 
-class ContactController extends Controller
+class ShareController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $items = Contact::all();
+        $items = Share::whith('contact')->get();
         return response()->json([
             'data' => $items
         ], 200);
     }
     public function store(Request $request)
     {
-        $item = Contact::create($request->all());
+        $item = Share::create($request->all());
         return response()->json([
             'data' => $item
         ], 201);
     }
-    public function show(Contact $contact)
+    public function show(Share $share)
     {
-        $item = Contact::find($contact);
+        $item = Share::find($share);
         if ($item) {
             return response()->json([
                 'data' => $item
@@ -34,14 +34,12 @@ class ContactController extends Controller
             ], 404);
         }
     }
-    public function update(Request $request, Contact $contact)
+    public function update(Request $request, Share $share)
     {
         $update = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password
+            'share' => $request->share,
         ];
-        $item = Contact::where('id', $contact->id)->update($update);
+        $item = Share::where('id', $share->id)->update($update);
         if ($item) {
             return response()->json([
                 'message' => 'Updated successfully',
@@ -52,9 +50,9 @@ class ContactController extends Controller
             ], 404);
         }
     }
-    public function destroy(Contact $contact)
+    public function destroy(Share $share)
     {
-        $item = Contact::where('id', $contact->id)->delete();
+        $item = Share::where('id', $share->id)->delete();
         if ($item) {
             return response()->json([
                 'message' => 'Deleted successfully',
@@ -64,5 +62,19 @@ class ContactController extends Controller
                 'message' => 'Not found',
             ], 404);
         }
+    }
+
+    public function add(Request $request)
+    {
+        return view('share.add');
+    }
+    public function create(Request $request)
+    {
+        $this->validate($request, Share::$rules);
+        $share = new Share;
+        $form = $request->all();
+        unset($form['_token_']);
+        $share->fill($form)->save();
+        return redirect('/share');
     }
 }

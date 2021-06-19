@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ShareController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,9 @@ use App\Http\Controllers\ContactController;
 
 
 Route::apiResource('/contact', ContactController::class);
+Route::apiResource('/share', ShareController::class);
+
+
 Route::get('/hello', function () {
     return response()->json([
         'message' => 'Hello'
