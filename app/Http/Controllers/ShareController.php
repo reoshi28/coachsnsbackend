@@ -9,7 +9,7 @@ class ShareController extends Controller
 {
     public function index(Request $request)
     {
-        $items = Share::whith('contact')->get();
+        $items = Share::whith('share')->get($request->all());
         return response()->json([
             'data' => $items
         ], 200);
