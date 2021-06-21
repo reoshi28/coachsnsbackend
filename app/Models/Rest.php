@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Rest extends Model
 {
     use HasFactory;
+
+    protected $guarded = array('id');
+    protected $fillable = ['message', 'url'];
+    public static $rules = array(
+        'message' => 'required',
+        'url' => 'required'
+    );
+
+
 }

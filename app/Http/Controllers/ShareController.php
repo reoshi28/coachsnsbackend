@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Share;
+use Illuminate\Http\Request;
 
 class ShareController extends Controller
 {
     public function index(Request $request)
     {
-        $items = Share::whith('share')->get($request->all());
+        $items = Share::all();
         return response()->json([
             'data' => $items
         ], 200);
@@ -62,19 +62,5 @@ class ShareController extends Controller
                 'message' => 'Not found',
             ], 404);
         }
-    }
-
-    public function add(Request $request)
-    {
-        return view('share.add');
-    }
-    public function create(Request $request)
-    {
-        $this->validate($request, Share::$rules);
-        $share = new Share;
-        $form = $request->all();
-        unset($form['_token_']);
-        $share->fill($form)->save();
-        return redirect('/share');
     }
 }

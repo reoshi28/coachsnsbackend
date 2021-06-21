@@ -15,7 +15,6 @@ class CreateSharesTable extends Migration
     {
         Schema::create('shares', function (Blueprint $table) {
             $table->id();
-            $table->integer('contact_id');
             $table->string('share');
             $table->timestamps();
         });
