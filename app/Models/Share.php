@@ -10,6 +10,15 @@ class Share extends Model
     use HasFactory;
     protected $guarded = array('id');
     public static $rules = array(
+        'contact_id' => 'required',
         'share' => 'required | max:120',
     );
+    public function getData()
+    {
+        return $this->id . ':' . $this->share . '(' . $this->contact->name . ')';
+    }
+    public function contact()
+    {
+        return $this->belongsTo('App\Models\contact');
+    }
 }

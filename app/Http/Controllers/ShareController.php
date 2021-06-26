@@ -34,22 +34,7 @@ class ShareController extends Controller
             ], 404);
         }
     }
-    public function update(Request $request, Share $share)
-    {
-        $update = [
-            'share' => $request->share,
-        ];
-        $item = Share::where('id', $share->id)->update($update);
-        if ($item) {
-            return response()->json([
-                'message' => 'Updated successfully',
-            ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Not found',
-            ], 404);
-        }
-    }
+    
     public function destroy(Share $share)
     {
         $item = Share::where('id', $share->id)->delete();
