@@ -14,9 +14,9 @@ class Contact extends Model
         'email' => 'required | email',
         'password' => 'required | min:6'
     );
-    public function shares()
+    public function share()
     {
-        return $this->hasMany('App\Models\Share');
+        return $this->hasOne('App\Models\Share');
     }
     use HasFactory;
 }
